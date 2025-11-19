@@ -1,4 +1,4 @@
-package com.example.Conflict.Tracker.domain;
+package com.example.Conflict.Tracker.model;
 
 public enum ConflictStatus {
     ACTIVE,
