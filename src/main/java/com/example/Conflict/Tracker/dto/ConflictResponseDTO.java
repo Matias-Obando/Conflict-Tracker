@@ -1,54 +1,32 @@
-package com.example.Conflict.Tracker.domain;
-
-import com.example.Conflict.Tracker.domain.ConflictStatus;
-import com.example.Conflict.Tracker.domain.Country;
-import jakarta.persistence.*;
-
+package com.example.Conflict.Tracker.dto;
+import com.example.Conflict.Tracker.model.ConflictStatus;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "conflict")
-public class Conflict {
+public class ConflictResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
     private LocalDate startDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private ConflictStatus status;
-
-    @Column(columnDefinition = "TEXT")
     private String description;
+    private Set<String> countryCodes;
 
-    // ManyToMany con Country
-    @ManyToMany
-    @JoinTable(
-            name = "conflict_country",
-            joinColumns = @JoinColumn(name = "conflict_id"),
-            inverseJoinColumns = @JoinColumn(name = "country_id")
-    )
-    private Set<Country> countries = new HashSet<>();
-
-    public Conflict() {
+    public ConflictResponseDTO() {
     }
 
-    public Conflict(Long id, String name, LocalDate startDate, ConflictStatus status, String description) {
+    public ConflictResponseDTO(Long id, String name, LocalDate startDate,
+                               ConflictStatus status, String description,
+                               Set<String> countryCodes) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.status = status;
         this.description = description;
+        this.countryCodes = countryCodes;
     }
 
-    // --- Getters y setters ---
+    // --- gett y sett
 
     public Long getId() {
         return id;
@@ -90,11 +68,12 @@ public class Conflict {
         this.description = description;
     }
 
-    public Set<Country> getCountries() {
-        return countries;
+    public Set<String> getCountryCodes() {
+        return countryCodes;
     }
 
-    public void setCountries(Set<Country> countries) {
-        this.countries = countries;
+    public void setCountryCodes(Set<String> countryCodes) {
+        this.countryCodes = countryCodes;
     }
 }
+
