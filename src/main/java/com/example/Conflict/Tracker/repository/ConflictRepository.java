@@ -1,4 +1,5 @@
 package com.example.Conflict.Tracker.repository;
+
 import com.example.Conflict.Tracker.model.Conflict;
 import com.example.Conflict.Tracker.model.ConflictStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,7 +8,5 @@ import java.util.List;
 
 public interface ConflictRepository extends JpaRepository<Conflict, Long> {
 
-    // Para /conflicts?status=ACTIVE
     List<Conflict> findByStatus(ConflictStatus status);
 }
-

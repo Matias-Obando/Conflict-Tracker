@@ -1,42 +1,31 @@
 package com.example.Conflict.Tracker.dto;
 
 import com.example.Conflict.Tracker.model.ConflictStatus;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.Set;
 
-public class ConflictResponseDTO {
+public class ConflictCreateUpdateDTO {
 
-    private Long id;
+    @NotBlank
     private String name;
+
     private LocalDate startDate;
+
+    @NotNull
     private ConflictStatus status;
+
     private String description;
+
+    // códigos tipo "UKR", "RUS"
     private Set<String> countryCodes;
 
-    public ConflictResponseDTO() {
-    }
-
-    public ConflictResponseDTO(Long id, String name, LocalDate startDate,
-                               ConflictStatus status, String description,
-                               Set<String> countryCodes) {
-        this.id = id;
-        this.name = name;
-        this.startDate = startDate;
-        this.status = status;
-        this.description = description;
-        this.countryCodes = countryCodes;
+    public ConflictCreateUpdateDTO() {
     }
 
     // getters y setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
