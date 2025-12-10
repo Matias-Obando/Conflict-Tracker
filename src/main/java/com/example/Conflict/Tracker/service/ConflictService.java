@@ -7,7 +7,7 @@ import com.example.Conflict.Tracker.dto.ConflictResponseDTO;
 import java.util.List;
 
 public interface ConflictService {
-    List<ConflictResponseDTO> findAll(String status); // status opcional
+    List<ConflictResponseDTO> findAll(String status); //  opcional
 
     ConflictResponseDTO findById(Long id);
 
@@ -15,4 +15,7 @@ public interface ConflictService {
 
     ConflictResponseDTO update(Long id, ConflictCreateUpdateDTO dto);
     void delete(Long id);
+
+    List<ConflictResponseDTO> findByCountryCode(String code);
+
 }

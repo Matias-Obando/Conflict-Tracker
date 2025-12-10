@@ -50,4 +50,6 @@ public class ConflictController {
     public void delete(@PathVariable Long id) {
         conflictService.delete(id);
     }
+
+
 }

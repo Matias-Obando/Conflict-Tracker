@@ -77,6 +77,19 @@ public class ConflictServiceImpl implements ConflictService {
         conflictRepository.deleteById(id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConflictResponseDTO> findByCountryCode(String code) {
+        List<Conflict> conflicts =
+                conflictRepository.findDistinctByCountries_CodeIgnoreCase(code);
+
+        return conflicts.stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+
+
     // ----- helpers -----
 
     private void applyDtoToEntity(ConflictCreateUpdateDTO dto, Conflict conflict) {

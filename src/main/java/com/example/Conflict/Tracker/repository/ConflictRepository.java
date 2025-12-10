@@ -9,4 +9,7 @@ import java.util.List;
 public interface ConflictRepository extends JpaRepository<Conflict, Long> {
 
     List<Conflict> findByStatus(ConflictStatus status);
+
+
+    List<Conflict> findDistinctByCountries_CodeIgnoreCase(String code);
 }
