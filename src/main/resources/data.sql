@@ -29,3 +29,10 @@ VALUES
   (1, 1),  -- Ukraine apoya Pro-Ukraine
   (1, 3),  -- USA apoya Pro-Ukraine
   (2, 2);  -- Russia apoya Pro-Russia
+
+  -- resetear autoincrement (para que los POST no intenten reutilizar IDs que ya tengo)
+  ALTER TABLE COUNTRY  ALTER COLUMN ID RESTART WITH 4;
+  ALTER TABLE CONFLICT ALTER COLUMN ID RESTART WITH 2;
+  ALTER TABLE EVENT    ALTER COLUMN ID RESTART WITH 3;
+  ALTER TABLE FACTION  ALTER COLUMN ID RESTART WITH 3;
+

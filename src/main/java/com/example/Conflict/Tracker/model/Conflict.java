@@ -46,7 +46,7 @@ public class Conflict {
         this.description = description;
     }
 
-    // --- Getters y setters ---
+    //  Gett y sett
 
     public Long getId() {
         return id;

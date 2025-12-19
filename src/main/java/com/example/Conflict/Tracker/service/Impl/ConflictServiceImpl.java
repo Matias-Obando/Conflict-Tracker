@@ -90,7 +90,7 @@ public class ConflictServiceImpl implements ConflictService {
 
 
 
-    // ----- helpers -----
+    // helpers
 
     private void applyDtoToEntity(ConflictCreateUpdateDTO dto, Conflict conflict) {
         conflict.setName(dto.getName());

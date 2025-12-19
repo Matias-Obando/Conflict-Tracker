@@ -60,7 +60,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- PostgreSQL (versión final) -->
+		<!-- PostgreSQL (versio final) -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

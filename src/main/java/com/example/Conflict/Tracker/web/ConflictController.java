@@ -18,7 +18,7 @@ public class ConflictController {
         this.conflictService = conflictService;
     }
 
-    // GET /api/v1/conflicts?status=ACTIVE (status es opcional)
+    // GET /api/v1/conflicts?status=ACTIVE (status  opcional)
     @GetMapping
     public List<ConflictResponseDTO> list(@RequestParam(required = false) String status) {
         return conflictService.findAll(status);
