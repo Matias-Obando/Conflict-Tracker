@@ -11,7 +11,7 @@ public class ConflictCreateUpdateDTO {
 
     @NotBlank
     private String name;
-
+    @NotNull
     private LocalDate startDate;
 
     @NotNull

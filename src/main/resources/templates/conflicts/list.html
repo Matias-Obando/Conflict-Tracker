@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Conflictos</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#f6f7fb; margin:0; padding:30px; }
+        .container { max-width: 1000px; margin: 0 auto; background:#fff; padding:24px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08); }
+        h1 { text-align:center; margin: 0 0 20px; }
+
+        .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+        .btn {
+          display:inline-block; padding:10px 14px; border-radius:10px; border:0; cursor:pointer;
+          text-decoration:none; font-weight:600; font-size:14px;
+        }
+        .btn-primary { background:#2563eb; color:#fff; }
+        .btn-primary:hover { filter:brightness(.95); }
+        .btn-danger { background:#dc2626; color:#fff; }
+        .btn-danger:hover { filter:brightness(.95); }
+
+        .alert-success { background:#eaf7ee; color:#166534; padding:10px 12px; border-radius:10px; margin-bottom:14px; border:1px solid #bbf7d0; }
+
+        table { width:100%; border-collapse: collapse; overflow:hidden; border-radius:12px; }
+        th, td { padding:12px; border-bottom:1px solid #e5e7eb; vertical-align: top; }
+        th { text-align:left; background:#f3f4f6; font-size:14px; }
+        tr:hover td { background:#fafafa; }
+
+        .actions { white-space:nowrap; }
+        .inline-form { display:inline; }
+        .muted { color:#6b7280; font-size:13px; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Listado de Conflictos</h1>
+
+    <div th:if="${param.created}" class="alert-success">
+        Conflicto creado correctamente.
+    </div>
+
+    <div th:if="${param.deleted}" class="alert-success">
+        Conflicto eliminado correctamente.
+    </div>
+
+    <div class="topbar">
+        <div class="muted">Total: <span th:text="${#lists.size(conflicts)}">0</span></div>
+
+        <a class="btn btn-primary" th:href="@{/web/conflicts/new}">+ Crear conflicto</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha inicio</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th class="actions">Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="c : ${conflicts}">
+            <td th:text="${c.name}">name</td>
+            <td th:text="${c.startDate}">startDate</td>
+            <td th:text="${c.status}">status</td>
+            <td th:text="${c.description}">description</td>
+
+            <td class="actions">
+                <!-- Botón eliminar -->
+                <form class="inline-form"
+                      th:action="@{/web/conflicts/{id}/delete(id=${c.id})}"
+                      method="post"
+                      onsubmit="return confirm('¿Seguro que quieres eliminar este conflicto?');">
+                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
