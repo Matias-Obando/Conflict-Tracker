@@ -1,26 +1,30 @@
 # Conflict Tracker API
 
-API REST desarrollada con **Spring Boot** para la gestión de conflictos internacionales, países, facciones y eventos asociados.
+API REST desarrollada con Spring Boot para la gestión de conflictos internacionales, países, facciones y eventos asociados.
 
 El proyecto permite crear, consultar, actualizar y eliminar información relacionada con conflictos armados, así como las relaciones entre países, facciones y eventos históricos.
+
+Además, incluye una pequeña interfaz web desarrollada con Thymeleaf para la gestión de conflictos.
 
 
 ## Tecnologías utilizadas
 
-- Java 21
-- Spring Boot 3
-- Spring Data JPA
-- Hibernate
-- H2 Database (en memoria)
-- Maven
-- Postman (para pruebas)
-
+-Java 21
+-Spring Boot 3
+-Spring Data JPA
+-Hibernate
+-PostgreSQL
+-H2 Database (perfil dev)
+-Thymeleaf (frontend)
+-Maven
+-Postman (para pruebas)
 
 ## Estructura del proyecto
 
 El proyecto sigue una arquitectura por capas:
 
 - **controller** -> Endpoints REST
+- **web** -> Controladores MVC (Thymeleaf)
 - **service** -> Lógica
 - **repository** -> Acceso a datos (JPA)
 - **model** -> Entidades JPA
@@ -30,20 +34,35 @@ El proyecto sigue una arquitectura por capas:
 
 ##  Base de datos
 
-- Base de datos **H2 en memoria**
-- Se inicializa automáticamente al arrancar la aplicación
-- Consola disponible en:http://localhost:8080/h2-console
-  
-## Cómo ejecutar el proyecto
-1-clonar el repositiorio -> git clone https://github.com/Matias-Obando/Conflict-Tracker.git
-2-Abrir el proyecto en intellij IDEA y ejecutar ConflictTrackerApplication
+El proyecto utiliza perfiles:
+**dev** → H2 en memoria
+**prod** → PostgreSQL
+La base de datos PostgreSQL se inicializa automáticamente mediante data.sql al arrancar la aplicación.
 
+## Frontend (Thymeleaf)
+
+Se ha implementado una pequeña interfaz web clásica:
+Ruta base: http://localhost:8080/web/conflicts
+
+## Funcionalidades:
+-Listado de conflictos
+-Creación de conflictos (formulario con validaciones)
+-Eliminación desde la interfaz
+-Mensajes de confirmación tras creación
+-El frontend reutiliza la misma lógica de negocio (Services) que la API REST.
+
+## Cómo ejecutar el proyecto
+
+Clonar el repositorio
+git clone https://github.com/Matias-Obando/Conflict-Tracker.git
+Configurar PostgreSQL (si se usa perfil prod)
+Ejecutar ConflictTrackerApplication desde IntelliJ IDEA
 
 ## Pruebas de la API
 
 Las pruebas se han realizado mediante:
-Postman (GET,POST, PUT, DELETE)
-Se han grabado vídeos demostrando el correcto funcionamiento de los endpoints.
+Postman (GET, POST, PUT, DELETE)
+Se han grabado vídeos demostrando el correcto funcionamiento de los endpoints
 
 ## Funcionalidades implementadas
 
@@ -54,7 +73,8 @@ Se han grabado vídeos demostrando el correcto funcionamiento de los endpoints.
 -Filtrado de conflictos por estado
 -Consulta de conflictos por país
 -Inicialización automática de datos
+-Interfaz web con Thymeleaf (listado y gestión básica)
 
-### Autor
+## Autor
 Matías Obando
-Practica Desarrollo de APIs REST con Spring Boot
+Práctica Desarrollo de APIs REST con Spring Boot
