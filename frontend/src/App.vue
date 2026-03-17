@@ -8,8 +8,8 @@
         </div>
 
         <nav class="main-nav">
-          <router-link to="/" class="nav-link">Home</router-link>
-          <router-link to="/create" class="nav-link btn-primary">New Conflict</router-link>
+          <router-link to="/" class="nav-link">Inicio</router-link>
+          <router-link to="/create" class="nav-link btn-primary">Nuevo Conflicto</router-link>
         </nav>
       </div>
     </header>
