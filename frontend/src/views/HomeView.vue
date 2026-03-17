@@ -34,7 +34,22 @@
                 <div class="row-title">{{ c.name || '—' }}</div>
                 <div class="row-excerpt">{{ excerpt(c) }}</div>
               </td>
-              <td>{{ (c.countryCodes || []).join(', ') || '—' }}</td>
+              <td>
+                <div v-if="(c.countryCodes || []).length" class="countries">
+                  <span v-for="code in (c.countryCodes || [])" :key="code" class="country-item">
+                    <img
+                      v-if="getFlagUrl(code)"
+                      :src="getFlagUrl(code)"
+                      :alt="code"
+                      class="country-flag"
+                      width="20"
+                      height="14"
+                    />
+                    <span class="country-code">{{ code }}</span>
+                  </span>
+                </div>
+                <div v-else class="no-countries">—</div>
+              </td>
               <td>{{ formatDate(c.startDate || c.start_date) }}</td>
               <td><span class="status" :data-status="c.status">{{ c.status || 'N/A' }}</span></td>
               <td class="actions-col">
@@ -70,6 +85,7 @@ import api from '../api/axios'
 import { useToast } from '../components/Toast.vue'
 import heroImg from '../assets/hero.png'
 import { useRouter } from 'vue-router'
+import { getFlagUrl } from '../utils/flags'
 
 const router = useRouter()
 
@@ -222,4 +238,11 @@ function imageFor(c){
 .link{ color:var(--accent); text-decoration:underline; font-weight:700 }
 .empty{ padding:48px 18px; color:var(--muted); text-align:center }
 .counts{ color:var(--muted); font-weight:600 }
+
+/* new styles for flags */
+.countries{ display:flex; gap:8px; flex-wrap:wrap; align-items:center }
+.country-item{ display:inline-flex; align-items:center; gap:8px; margin-right:6px }
+.country-flag{ display:inline-block; border-radius:2px; object-fit:cover }
+.country-code{ font-weight:600; color:var(--text); font-size:13px }
+.no-countries{ color:var(--muted) }
 </style>

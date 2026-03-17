@@ -1,6 +1,6 @@
 <template>
   <section class="create">
-    <div class="panel">
+    <div class="panel card-form">
       <h2>Nuevo conflicto</h2>
 
       <form @submit.prevent="save" class="form-grid">
@@ -31,7 +31,7 @@
 
         <label class="full">
           Descripción
-          <textarea v-model="form.description" rows="6" />
+          <textarea v-model="form.description" rows="6"></textarea>
         </label>
 
         <div class="form-actions">
@@ -150,14 +150,46 @@ async function save() {
 </script>
 
 <style scoped>
+
+.create {
+  padding: 12px 0 80px;
+}
+
+
 .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+
 label{ display:flex; flex-direction:column; gap:6px; color:var(--text); font-weight:600 }
-input, textarea, select{ padding:10px; border-radius:8px; border:1px solid rgba(15,23,42,0.06); font-size:14px }
+
+input, textarea, select{ padding:10px; border-radius:8px; border:1px solid rgba(15,23,42,0.06); font-size:14px; background: white; color:var(--text) }
+
 label.full{ grid-column:1 / -1 }
+
 .form-actions{ grid-column:1 / -1; display:flex; gap:10px; align-items:center; margin-top:8px }
-.btn.primary{ background:var(--accent); color:white; border-color:var(--accent) }
+.btn.primary{ background:var(--accent); color:white; border-color:var(--accent); padding:10px 14px; border-radius:8px; cursor:pointer }
 .link.ghost{ color:var(--accent); text-decoration:underline }
 
 .server-error{ margin-top:16px; background:#fff6f6; border:1px solid #ffd2d2; padding:12px; border-radius:8px; color:#7f1d1d }
 .server-error pre{ white-space:pre-wrap; max-height:280px; overflow:auto; background:transparent; padding:0; margin:0; color:inherit }
+
+.card-form {
+  background: rgba(255,255,255,0.96);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 12px 30px rgba(12,15,30,0.08);
+  border: 1px solid rgba(15,23,42,0.04);
+  backdrop-filter: blur(6px);
+  margin-top: -40px;
+}
+
+.card-form > h2 {
+  margin: 0 0 14px 0;
+  font-size: 20px;
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .form-grid{ grid-template-columns: 1fr; }
+  .create { padding: 12px 0 48px; }
+  .card-form { padding: 16px; margin-top: -20px; }
+}
 </style>
