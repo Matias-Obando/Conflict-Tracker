@@ -66,6 +66,8 @@ public class ConflictServiceImpl implements ConflictService {
                 .orElseThrow(() -> new NoSuchElementException("Conflict not found"));
 
         applyDtoToEntity(dto, conflict);
+        // --- importante: guardar la entidad modificada para persistir los cambios ---
+        conflict = conflictRepository.save(conflict);
         return toDTO(conflict);
     }
 
@@ -99,13 +101,40 @@ public class ConflictServiceImpl implements ConflictService {
         conflict.setDescription(dto.getDescription());
 
         if (dto.getCountryCodes() != null) {
-            Set<Country> countries = dto.getCountryCodes().stream()
-                    .map(code -> countryRepository
-                            .findByCodeIgnoreCase(code)
-                            .orElseThrow(() -> new NoSuchElementException("Country not found: " + code)))
-                    .collect(Collectors.toSet());
+            // Resuelve/crea countries y asocia al conflicto
+            Set<Country> countries = resolveOrCreateCountries(dto.getCountryCodes());
             conflict.setCountries(countries);
+        } else {
+            conflict.setCountries(Collections.emptySet());
         }
+    }
+
+    protected Set<Country> resolveOrCreateCountries(Collection<String> codes) {
+        if (codes == null || codes.isEmpty()) return Collections.emptySet();
+
+        Set<String> normalized = codes.stream()
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(String::toUpperCase)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+
+        Set<Country> countries = new LinkedHashSet<>();
+
+        for (String code : normalized) {
+            Optional<Country> maybe = countryRepository.findByCodeIgnoreCase(code);
+            if (maybe.isPresent()) {
+                countries.add(maybe.get());
+            } else {
+                Country c = new Country();
+                c.setCode(code);
+                c.setName(code);
+                Country saved = countryRepository.save(c);
+                countries.add(saved);
+            }
+        }
+
+        return countries;
     }
 
     private ConflictResponseDTO toDTO(Conflict conflict) {
